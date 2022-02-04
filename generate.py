@@ -50,11 +50,13 @@ else:
     print(">> generate with decoder wise... beam size is {}".format(beam))
     mt = MusicTransformerDecoder(loader_path=load_path)
 
-inputs = encode_midi('dataset/midi/BENABD10.mid')
+# inputs = encode_midi('dataset/midi/BENABD10.mid')
 
 
-with gen_summary_writer.as_default():
-    result = mt.generate(inputs[:10], beam=beam, length=length, tf_board=True)
+# with gen_summary_writer.as_default():
+    # result = mt.generate(inputs[:10], beam=beam, length=length, tf_board=True)
+
+result = mt.generate(prior=[64], beam=beam, length=length, tf_board=True)
 
 for i in result:
     print(i)
