@@ -3,6 +3,7 @@ from custom.layers import *
 from custom import callback
 import params as par
 from tensorflow.python.keras.optimizer_v2.adam import Adam
+# from tensorflow.python.keras.optimizer_v2.gradient_descent import SGD # for alternative optimizer
 from data import Data
 import utils
 import argparse
@@ -47,7 +48,8 @@ print(dataset)
 
 # load model
 learning_rate = callback.CustomSchedule(par.embedding_dim) if l_r is None else l_r
-opt = Adam(learning_rate, beta_1=0.9, beta_2=0.98, epsilon=1e-9)
+opt = Adam(learning_rate, beta_1=0.9, beta_2=0.98, epsilon=1e-9) # this crashes on tensorflow-metal on macOS 11
+# opt = SGD(learning_rate) # doens't work well - we get nan as loss and accuracy of 0 (why?)
 
 
 # define model
